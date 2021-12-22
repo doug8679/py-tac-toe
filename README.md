@@ -29,3 +29,5 @@ A simple PyGame Tic-Tac-Toe implementation as a learning experience with Python 
 ```sh
 python3 app.py
 ```
+
+![game image](sample.png "Sample Game Board")
