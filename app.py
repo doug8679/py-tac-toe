@@ -99,21 +99,25 @@ class App(cevent.CEvent):
         for w in winning_sets:
             if w.issubset(self.ehks):
                 self.winner = 'X'
-                self.ehks.clear()
+                self.clear()
                 break
             elif w.issubset(self.oh):
                 self.winner = 'O'
-                self.oh.clear()
+                self.clear()
                 break;
         if self.winner == None and self.is_draw():
             self.winner = 'SCRATCH'
 
+    def clear(self):
+        self.ehks.clear()
+        self.oh.clear()
+        
     def is_draw(self):
         marked = len(self.ehks) + len(self.oh)
         if marked == 9 and self.winner == None:
             return True
         return False
-        
+
     def on_render(self):
         if self.winner != None:
             # Draw menu
@@ -168,8 +172,9 @@ class App(cevent.CEvent):
         self.screen.blit(no, noR)
 
     def draw_x(self, surf, rect):
-        pygame.draw.line(surf, red, (rect.left, rect.top), (rect.right, rect.bottom), 5)
-        pygame.draw.line(surf, red, (rect.left, rect.bottom), (rect.right, rect.top), 5)
+        x_rect = rect.inflate(-rect.width//3, -rect.height//3)
+        pygame.draw.line(surf, red, (x_rect.left, x_rect.top), (x_rect.right, x_rect.bottom), 5)
+        pygame.draw.line(surf, red, (x_rect.left, x_rect.bottom), (x_rect.right, x_rect.top), 5)
 
     def draw_o(self, surf, rect):
         pygame.draw.circle(surf, blue, rect.center, rect.width//3, 5)
